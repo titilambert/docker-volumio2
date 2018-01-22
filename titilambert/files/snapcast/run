@@ -1,0 +1,16 @@
+#!/bin/sh
+set -eu
+
+HOST_USER="${HOST_USER:-$(id -u snapserver):$(id -g snapserver)}"
+AUDIO_OUTPUT="${AUDIO_OUTPUT:-alsa}"
+HOST_USER="root:root"
+
+# prepare folders
+mkdir -p /var/run/snapserver/ /var/lib/snapserver
+chown $HOST_USER /var/run/snapserver/ /var/lib/snapserver/
+
+# set audio output in mpd configuration
+#sed -i "s/%%AUDIO_OUTPUT%%/$AUDIO_OUTPUT/" /etc/mpd.conf
+
+#exec gosu $HOST_USER mpd --stderr --verbose --no-daemon /etc/mpd.conf
+exec gosu $HOST_USER /usr/bin/snapserver --user snapserver:snapserver -s "pipe:///tmp/snapfifo?name=Volumio-MPD&mode=read" -s "pipe:///tmp/spotififo?name=Volumio-Spotify&mode=read"
