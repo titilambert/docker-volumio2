@@ -13,4 +13,4 @@ chown $HOST_USER /var/run/snapserver/ /var/lib/snapserver/
 #sed -i "s/%%AUDIO_OUTPUT%%/$AUDIO_OUTPUT/" /etc/mpd.conf
 
 #exec gosu $HOST_USER mpd --stderr --verbose --no-daemon /etc/mpd.conf
-exec gosu $HOST_USER /usr/bin/snapserver --user snapserver:snapserver -s "pipe:///tmp/snapfifo?name=Volumio-MPD&mode=read" -s "pipe:///tmp/spotififo?name=Volumio-Spotify&mode=read"
+exec gosu $HOST_USER /usr/bin/snapserver --user snapserver:snapserver -s "pipe:///tmp/snapfifo?name=Volumio&mode=create&sampleformat=44100:16:2" --sampleformat=44100:16:2

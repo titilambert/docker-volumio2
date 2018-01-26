@@ -1,0 +1,14 @@
+#!/bin/sh
+set -eu
+
+echo "spotify_username = $SPOTIFY_USERNAME" >> /etc/spopd.conf
+echo "spotify_password = $SPOTIFY_PASSWORD" >> /etc/spopd.conf
+
+run-parts --verbose --exit-on-error /etc/startup
+
+if [ -z "$*" ]; then
+        exec /usr/bin/s6-svscan -s /etc/service
+else
+        /usr/bin/s6-svscan -s /etc/service > /var/log/runit.log 2>&1 &
+        exec $*
+fi

@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+. /usr/lib/runit-lib
+
+export UID=$(id -u nobody)
+exec socklog unix /dev/log
