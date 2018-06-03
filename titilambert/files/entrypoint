@@ -1,6 +1,7 @@
 #!/bin/sh
 set -eu
 
+chown -R volumio: /home/volumio
 echo "spotify_username = $SPOTIFY_USERNAME" >> /etc/spopd.conf
 echo "spotify_password = $SPOTIFY_PASSWORD" >> /etc/spopd.conf
 
